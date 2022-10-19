@@ -12,7 +12,6 @@ function Provider({ children }) {
       const response = await fetch(endpoint);
       const result = await response.json();
       const { results } = result;
-      console.log(results);
       const filteredAPI = results
         .filter((obj) => (Object.keys(obj) !== 'residents' ? delete obj.residents : obj));
       setPlanets(filteredAPI);
