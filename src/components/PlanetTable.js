@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import planetContext from '../context/planetContext';
+import Filters from './Filters';
 
 function PlanetTable() {
   const { planets, handleInput, searchPlanet } = useContext(planetContext);
   return (
     <section>
+      <Filters />
       <label htmlFor="planets">
         <input
           type="text"

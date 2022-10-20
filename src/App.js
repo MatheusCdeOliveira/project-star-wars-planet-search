@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import PlanetTable from './components/PlanetTable';
+
 import Provider from './context/Provider';
 
 function App() {
