@@ -15,9 +15,9 @@ function Provider({ children }) {
       const response = await fetch(endpoint);
       const result = await response.json();
       const { results } = result;
-      const filteredAPI = results
-        .filter((obj) => (Object.keys(obj) !== 'residents' ? delete obj.residents : obj));
-      setPlanets(filteredAPI);
+      // const filteredAPI = results
+      //   .filter((obj) => (Object.keys(obj) !== 'residents' ? delete obj.residents : obj));
+      setPlanets(results);
     };
     getAPI();
   }, []);

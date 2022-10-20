@@ -189,17 +189,14 @@ const mock = [
   }
 ]
 
-beforeEach(() => {
-})
-
 test('I am your test', async () => {
-  // global.fetch = jest.fn(async () => ({
-  //   json: async () => mock
-  // }));
+//   global.fetch = jest.fn(async () => ({
+//     json: async () => mock
+//   }));
 
-  jest.fn().mockResolvedValue({
-    json: jest.fn().mockResolvedValue({ mock })
-  })
+//   jest.fn().mockResolvedValue({
+//     json: jest.fn().mockResolvedValue({ mock })
+//   })
 
  const { debug } = render(<App />);
   const linkElement = screen.getByText(/Hello, App!/i);
@@ -212,7 +209,7 @@ test('I am your test', async () => {
     expect(element).toBeInTheDocument();
   });
 
-  const planets = await screen.findAllByRole('cell', {}, { timeout: 2000 });
+  const planets = await screen.findAllByRole('cell', {}, { timeout: 3000 });
   planets.forEach((planet) => {
     expect(planet).toBeInTheDocument();
   });
@@ -233,7 +230,41 @@ test('I am your test', async () => {
   expect(naboo).toBeInTheDocument();
   expect(kamino).not.toBeInTheDocument();
 
-//   expect(mock[0]).not.toContain('residents')
+  const selectColumn = screen.getByTestId('column-filter');
+  expect(selectColumn).toBeInTheDocument();
+
+  userEvent.selectOptions(selectColumn, ['diameter'])
+
+  const valueFilter = screen.getByRole('spinbutton');
+  userEvent.clear(valueFilter);
+  userEvent.type(valueFilter ,'9000');
+
+  const btnFilter = screen.getByRole('button', {  name: /filtrar/i})
+  expect(btnFilter).toBeInTheDocument();
+
+  userEvent.click(btnFilter);
+
+  const tatooine = screen.getByRole('cell', {  name: /tatooine/i})
+  expect(tatooine).toBeInTheDocument();
+
+  const comparison = screen.getByTestId('comparison-filter');
+  userEvent.selectOptions(selectColumn, ['population']);
+  userEvent.selectOptions(comparison, ['menor que']);
+
+  userEvent.clear(valueFilter);
+  userEvent.type(valueFilter, '1000000');
+  userEvent.click(btnFilter);
+
+  expect(tatooine).toBeInTheDocument();
+
+  userEvent.selectOptions(selectColumn, ['rotation_period']);
+  userEvent.selectOptions(comparison, ['igual a']);
+
+  userEvent.clear(valueFilter);
+  userEvent.type(valueFilter, '23');
+  userEvent.click(btnFilter);
+
+  expect(tatooine).toBeInTheDocument();
 
   debug()
 });
