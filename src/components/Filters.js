@@ -5,18 +5,23 @@ function Filters() {
   const { handlePopulation,
     handleComparison,
     handleValueFilter,
-    handleClickFilter, valueFilter } = useContext(planetContext);
+    handleClickFilter,
+    valueFilter, filterByNumericValues, options } = useContext(planetContext);
   return (
     <nav>
       <select
         data-testid="column-filter"
         onChange={ handlePopulation }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {options
+          .map((option) => (
+            <option
+              value={ option }
+              key={ option }
+            >
+              {`${option}`}
+            </option>
+          ))}
       </select>
       <select data-testid="comparison-filter" onChange={ handleComparison }>
         <option>maior que</option>
@@ -40,6 +45,14 @@ function Filters() {
         Filtrar
 
       </button>
+      {filterByNumericValues.map((element) => (
+        <p key={ element.columnFilter }>
+          {`${element.columnFilter}
+         ${element.comparison} ${element.valueFilter}`}
+
+        </p>
+
+      ))}
     </nav>
   );
 }
