@@ -70,14 +70,14 @@ function Provider({ children }) {
     }
     if (comparison === 'igual a') {
       const newPlanet = planets
-        ?.filter((planet) => Number(planet[columnFilter]) !== Number(valueFilter));
+        ?.filter((planet) => Number(planet[columnFilter]) === Number(valueFilter));
       setPlanets(newPlanet);
       const obj = {
         columnFilter,
         comparison,
         valueFilter,
       };
-      const newFilter = options.filter((option) => option === obj.columnFilter);
+      const newFilter = options.filter((option) => option !== obj.columnFilter);
       setfilterByNumericValues([...filterByNumericValues, obj]);
       setOptions(newFilter);
     }
