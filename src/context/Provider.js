@@ -68,6 +68,7 @@ function Provider({ children }) {
       setfilterByNumericValues([...filterByNumericValues, obj]);
       setOptions(newFilter);
     }
+
     if (comparison === 'igual a') {
       const newPlanet = planets
         ?.filter((planet) => Number(planet[columnFilter]) === Number(valueFilter));
