@@ -19,7 +19,7 @@ function Provider({ children }) {
       const result = await response.json();
       const { results } = result;
       // const filteredAPI = results
-      //   .filter((obj) => (Object.keys(obj) !== 'residents' ? delete obj.residents : obj));
+      //   .filter((obj) => (Object.keys(obj) !== 'residents' ? delete obj.residents : obj))
       setPlanets(results);
     };
     getAPI();
